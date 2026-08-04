@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kräftskiva 2026 - Mamsellvägen 26</title>
+    <style>
+        :root {
+            --primary-color: #d32f2f; 
+            --bg-color: #fff9e6; 
+            --text-color: #333;
+            --map-color: #4285F4;
+            --drive-color: #0F9D58;
+            --song-color: #e91e63;
+            --quiz-color: #ff9800;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var--bg-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 10px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            margin: 10px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px dashed var(--primary-color);
+            position: relative;
+        }
+
+        /* Fyrkantig och stor bild-knapp, nu centrerad/placerad säkert innanför */
+        .inside-drive-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--drive-color);
+            color: white;
+            width: 65px;
+            height: 65px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: background-color 0.2s, transform 0.2s;
+            z-index: 10;
+        }
+
+        .inside-drive-btn span:first-child {
+            font-size: 1.4rem;
+        }
+
+        .inside-drive-btn:hover {
+            background-color: #0b8043;
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #555;
+            padding: 0 10px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .nav-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 8px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-btn.song-btn {
+            background-color: var(--song-color);
+        }
+        .nav-btn.song-btn:hover {
+            background-color: #c2185b;
+        }
+
+        .nav-btn span {
+            font-size: 1.6rem;
+        }
+
+        .nav-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px);
+        }
+
+        .content-box {
+            display: none;
+            background-color: #ffebee;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.6;
+            animation: fadeIn 0.4s ease-in-out;
+            margin-bottom: 25px;
+            word-break: break-word;
+        }
+
+        .content-box.song-box-style {
+            background-color: #fce4ec;
+            border-left-color: var(--song-color);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Sånglista stil */
+        .song-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .song-list-item {
+            background: white;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #f8bbd0;
+        }
+
+        .song-title-btn {
+            width: 100%;
+            background: white;
+            border: none;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: var(--song-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .song-title-btn:hover {
+            background: #f8bbd0;
+            color: #fff;
+        }
+
+        .song-lyrics {
+            display: none;
+            padding: 15px;
+            background: #fff;
+            font-style: italic;
+            white-space: pre-line;
+            border-top: 1px solid #f8bbd0;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .content-box ol {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .content-box li {
+            margin-bottom: 10px;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            background-color: var(--map-color);
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .map-link:hover {
+            background-color: #3367D6;
+        }
+
+        /* --- Sektioner --- */
+        .extra-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            text-align: left;
+        }
+
+        .extra-section h2 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Quiz-formulär stil */
+        .quiz-card {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid #ffe0b2;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        .quiz-question {
+            margin-bottom: 15px;
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .quiz-question p {
+            margin-top: 0;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .quiz-options label {
+            display: block;
+            font-weight: normal;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .submit-quiz-btn {
+            background-color: var(--quiz-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .submit-quiz-btn:hover {
+            background-color: #f57c00;
+        }
+
+        .moon-icon {
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Extra media query för riktigt små mobiler */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px 10px;
+            }
+            .inside-drive-btn {
+                width: 55px;
+                height: 55px;
+                top: 10px;
+                left: 10px;
+                font-size: 0.7rem;
+            }
+            .inside-drive-btn span:first-child {
+                font-size: 1.1rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+                margin-top: 35px; /* Skapa plats för knappen */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Fyrkantig och stor bild-knapp högst upp till vänster -->
+        <a href="https://drive.google.com/drive/folders/1zvHm_3LW7H_5Z6b2ynNLr_qV9DqYaHTU?usp=sharing" target="_blank" class="inside-drive-btn">
+            <span>📸</span>
+            <span>Bilder</span>
+        </a>
+
+        <div class="moon-icon">🌝🦞</div>
+        <h1>Kräftskiva 2026</h1>
+        <p class="subtitle">Mamsellvägen 26, Förslöv. Hur hade du tänkt ta dig hit?</p>
+
+        <div class="button-grid">
+            <button class="nav-btn" onclick="showSection('flyg', 'route')"><span>✈️</span> Flyg</button>
+            <button class="nav-btn" onclick="showSection('lastbil', 'route')"><span>🚚</span> Lastbil</button>
+            <button class="nav-btn" onclick="showSection('bat', 'route')"><span>🚤</span> Båt</button>
+            <button class="nav-btn" onclick="showSection('tag', 'route')"><span>🚆</span> Tåg/Buss</button>
+            <button class="nav-btn" onclick="showSection('bil', 'route')"><span>🚗</span> Bil</button>
+            <button class="nav-btn song-btn" onclick="showSection('sanghapte', 'song')"><span>🎶</span> Sångh.</button>
+        </div>
+
+        <div id="result-box" class="content-box"></div>
+
+        <!-- Tipspromenad / Hus-quiz -->
+        <div class="extra-section">
+            <h2 style="color: var(--quiz-color);">🧠 Hus-quiz & Tipspromenad</h2>
+            <p style="font-size: 1rem; color: #555;">Fyll i ert lagnamn och vilka som deltar, svara på frågorna och skicka in. Du får alla svar samlade direkt till dig!</p>
+            
+            <form action="https://formspree.io/f/xdennkvj" method="POST" class="quiz-card">
+                
+                <div class="form-group">
+                    <label for="team-name">Lagnamn:</label>
+                    <input type="text" id="team-name" name="Lagnamn" placeholder="T.ex. Lag Kräftpest" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="team-members">Vilka ingår i laget?:</label>
+                    <input type="text" id="team-members" name="Deltagare" placeholder="T.ex. Jesper, Kalle, Alexander..." required>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Fråga 1: Hur många kvadratmeter smarta hem-kablar har grävts ner eller dolts sedan inflytten i juli?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="Fraga_1" value="X" required> X) 12 meter</label>
+                        <label><input type="radio" name="Fraga_1" value="1"> 1) Alldeles för många</label>
+                        <label><input type="radio" name="Fraga_1" value="2"> 2) Inga alls</label>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p>Fråga 2: Vilket fordon står i absolut flest diskussioner i garaget (förutom Passaten)?</p>
+                    <div class="quiz-options">
+                        <label><input type="radio" name="Fraga_2" value="X" required> X) En trimmad epa</label>
+                        <label><input type="radio" name="Fraga_2" value="1"> 1) DJI Mini 4K-drönaren</label>
+                        <label><input type="radio" name="Fraga_2" value="2"> 2) En gammal traktor</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-quiz-btn">Skicka in lagets svar! 🚀</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const destination = "Mamsellvägen+26,+Förslöv";
+        let currentActiveKey = null;
+
+        const contentData = {
+            flyg: `<strong>✈️ Flygplan:</strong><br> 
+            För dig med hybris eller alldeles för stor resebudget. Gör så här:<br>
+            <ol>
+                <li>Gå in på SAS.se (eller kolla om någon har några EuroBonus-poäng att strö omkring sig).</li>
+                <li>Sök efter flyg till Ängelholm-Helsingborg Airport (AGH).</li>
+                <li>Boka en Plus-biljett så du i alla fall får 2 cl kaffe och en kall polarrulle på vägen.</li>
+                <li>När du landat bland grönkålsåkrarna, ta en taxi sista biten till festen.</li>
+            </ol>
+            <a href="https://www.google.com/maps/dir/Ängelholm-Helsingborg+Airport/${destination}" target="_blank" class="map-link">📍 Öppna taxirutten i Google Maps</a>`,
+            
+            lastbil: `<strong>🚚 Lastbil:</strong><br> 
+            Kommer du rullande direkt från ett mastodontpass på lagret? <br><br>
+            Problemet är att uppfarten är noll procent anpassad för 24-meters ekipage. Ställ släpet vid macken i Förslöv (Circle K) och promenera sista biten. Vi sparar lite kräftspad till dig.<br><br>
+            <a href="https://www.google.com/maps/dir/Circle+K+Förslöv/${destination}" target="_blank" class="map-link">📍 Öppna gångväg från macken i Maps</a>`,
+            
+            bat: `<strong>🚤 Båt:</strong><br> 
+            Har du korsat Skälderviken? Imponerande.<br>
+            <ol>
+                <li>Kasta ankar i Vejbystrand hamn.</li>
+                <li>Inse att du har över 7 kilometer inåt land till Förslöv.</li>
+                <li>Börja gå, och ring runt och muta någon av oss andra med en flaska OP Anderson för upphämtning.</li>
+            </ol>
+            <a href="https://www.google.com/maps/dir/Vejbystrand+hamn/${destination}" target="_blank" class="map-link">📍 Öppna rutten från hamnen i Maps</a>`,
+            
+            tag: `<strong>🚆 Tåg & Buss:</strong><br> 
+            Det smidigaste alternativet för dig som planerar att sjunga snapsvisor! <br>
+            <ol>
+                <li>Öppna Skånetrafiken.</li>
+                <li>Ta Pågatåget till Förslöv station.</li>
+                <li>Hoppa på bussen upp till macken och gå sista biten, eller ta en skön 25-minuters promenad (ca 1.7 km) för att bygga upp aptiten.</li>
+            </ol>
+            <a href="https://www.google.com/maps/dir/Förslöv+station/${destination}" target="_blank" class="map-link">📍 Öppna gång/buss-rutt från stationen</a>`,
+            
+            bil: `<strong>🚗 Bil:</strong><br> 
+            Standardvalet! <br><br>
+            Ta E4:an och sväng av vid <strong>avfart 37 (Trafikplats Hjärnarp)</strong>. Kör via Margretetorpsvägen rakt in i Förslöv och sväng in på Mamsellvägen 26. <br><br>
+            Det finns plats på gatan eller på uppfarten. Obs: Skulle min Passat behöva flyttas så kom ihåg att man inte vrider om någon nyckel på B7:orna, det är ju keyless-pucken som gäller!<br><br>
+            <a href="https://www.google.com/maps/dir/Trafikplats+Hjärnarp,+266+98+Hjärnarp/${destination}" target="_blank" class="map-link">📍 Öppna körväg från E4:an i Maps</a>`,
+
+            sanghapte: `<strong>🎶 Sånghäfte & Traditionella Visor</strong><br><br>
+                <ul class="song-list">
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s1')">1. Helan Går <span>▼</span></button>
+                        <div id="s1" class="song-lyrics">Helan går, sjung hopp faderallan lallan lej!
+Helan går, sjung hopp faderallan lallan lej!
+Och den som inte helan tar,
+han heller inte halva har.
+Helan går! (Sjung hopp faderallan lej!)</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s2')">2. Kräftor kräver ju små nubbar <span>▼</span></button>
+                        <div id="s2" class="song-lyrics">Kräftor kräver ju små nubbar,
+Kräftor kräver ju små nubbar.
+En liten snaps, till varje klo,
+det är för strupen en lisa.
+Så här gör kräftvännen när det står,
+kräftor på bordet och när han får,
+en liten snaps, till varje klo.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s3')">3. Små kräftorna (Små grodorna) <span>▼</span></button>
+                        <div id="s3" class="song-lyrics">Små kräftorna, små kräftorna är lustiga att se,
+de har inga öron, de har inga svansar med!
+Hopp sa sa, hopp sa sa,
+nu äter vi dem opp och ropar hurra!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s4')">4. Vi går över daggstänkta berg (Dillprydda berg) <span>▼</span></button>
+                        <div id="s4" class="song-lyrics">Vi går mot de dillprydda berg, fallera,
+som lånat av rubinerna sin färg, fallera!
+Så skön på stora faten ligger kräftan, gudamaten,
+vilken stärker och styrker vår märg, fallera!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s5')">5. Uppå kräftkalaset <span>▼</span></button>
+                        <div id="s5" class="song-lyrics">Uppå kräftkalaset, uppå kräftkalaset,
+där må ni tro.
+tar man sig en liten, tar man sig en liten,
+till varje klo!
+Genom strupen, lilla supen,
+rinner ner och gör oss glada!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s6')">6. Kräfta, kräfta prydd med dill <span>▼</span></button>
+                        <div id="s6" class="song-lyrics">Kräfta, kräfta prydd med dill,
+och en immig sup därtill,
+bröd och smör och ost och sill,
+och så några supar till.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s7')">7. Kräftan och jag <span>▼</span></button>
+                        <div id="s7" class="song-lyrics">Kräftan och jag, kräftan och jag,
+vi trivs så bra tillsammans, hon och jag.
+Där ligger hon på ett fat mellan dill,
+och lovar precis så mycket du vill.
+Och får man en iskall nubbe därtill,
+av glädje man faller samman.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s8')">8. Supen den rinner (Mors lilla Olle) <span>▼</span></button>
+                        <div id="s8" class="song-lyrics">Supen den rinner längs strupen fram,
+den värmer och gör att det fest blir med glam,
+och äta sin kräfta med smak utav dill,
+man kan inte motstå, det kräver en till.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s9')">9. Kräftan i mitt hjärta (Stockholm i mitt hjärta) <span>▼</span></button>
+                        <div id="s9" class="song-lyrics">Kräftan i mitt hjärta,
+för dig vill jag skåla ännu.
+Kokad till rödaktig fägnad,
+flodernas kung är du.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s10')">10. Festen i mitt hjärta <span>▼</span></button>
+                        <div id="s10" class="song-lyrics">Här utpå våran veranda,
+vi dricker så mycket vi tål.
+Med kräftor från hela världen,
+suger vi i oss allt.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s11')">11. Bä, bä vita lamm (Kräft-version) <span>▼</span></button>
+                        <div id="s11" class="song-lyrics">Droppar faller lätt,
+uti kräftans dar.
+Droppar titt och tätt,
+vi tillsammans tar.
+Vi tar en snaps för far,
+och sedan en för mor,
+och kräftans klo för lille, lille bror.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s12')">12. Månen speglar sig i krusen <span>▼</span></button>
+                        <div id="s12" class="song-lyrics">Månen speglar sig i krusen,
+ombesörjer gratis ljusen.
+När den går ner, då går vi opp,
+och vandrar hem lätt på snusen.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s13')">13. En gång i månan är månen full <span>▼</span></button>
+                        <div id="s13" class="song-lyrics">En gång i månan är månen full,
+men aldrig vi sett honom ramla omkull.
+Stum av beundran hur mycket han tål,
+höjer vi glasen och dricker hans skål.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s14')">14. Ett kräftkalas <span>▼</span></button>
+                        <div id="s14" class="song-lyrics">Ett kräftkalas, ett kräftkalas,
+det är kalas med fulla glas.
+Men finns det bara tomma glas,
+så är det inget kräftkalas.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s15')">15. Gubben Noak <span>▼</span></button>
+                        <div id="s15" class="song-lyrics">Gubben Noak, gubben Noak var en hedersman,
+när han drack ur sin kanna,
+så fyllde han en annan.
+Gubben Noak, gubben Noak var en hedersman!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s16')">16. Hej tomtegubbar <span>▼</span></button>
+                        <div id="s16" class="song-lyrics">Hej tomtegubbar slå i glasen och låt oss lustiga vara,
+hej tomtegubbar slå i glasen och låt oss lustiga vara.
+Och en liten hutt vi taga vilja,
+hej tomtegubbar slå i glasen!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s17')">17. Lilla kräftan sa till sin syster <span>▼</span></button>
+                        <div id="s17" class="song-lyrics">En liten kräfta sa till sin syster:
+"Min vän, var inte så svart och dyster.
+När du blir stor blir du röd och fin,
+och du får bada i brännevin!"</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s18')">18. Skåne saft (Snapsvisa) <span>▼</span></button>
+                        <div id="s18" class="song-lyrics">Skånesaft, en sydsvensk saft av sällsam kraft.
+Skånesaft, den bästa saft systemet haft.
+Ens livslust väcks och släppes loss,
+när sådan saft serveras oss.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s19')">19. Vi skålar för våra vänner <span>▼</span></button>
+                        <div id="s19" class="song-lyrics">Vi skålar för våra vänner,
+och dom som vi känner,
+och dom som vi inte känner –
+dom skiter vi i!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s20')">20. Mera brännvin <span>▼</span></button>
+                        <div id="s20" class="song-lyrics">Mera brännvin i glasen,
+låt det rinna i nasen!
+Nej i magen ska det va,
+för då mår vi så bra!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s21')">21. Den som inte helan tar <span>▼</span></button>
+                        <div id="s21" class="song-lyrics">Den som inte helan tar,
+han heller inte halva har!
+För den som gillar brännvin smått,
+han vet ju vad som smakar gott.</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s22')">22. Flertalet nubbar <span>▼</span></button>
+                        <div id="s22" class="song-lyrics">Till nubben så tager man sill,
+men också ansjovis, om man vill.
+Och om man är oviss om sillen är ansjovis,
+så tager man några nubbar till!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s23')">23. Brännvinet är ett lustigt ting <span>▼</span></button>
+                        <div id="s23" class="song-lyrics">Brännvin är ett lustigt ting,
+bäst man känner ingenting.
+Vips, man är rätt yr i hatten,
+dagen efter älskar vatten!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s24')">24. Humlor och getingar <span>▼</span></button>
+                        <div id="s24" class="song-lyrics">Vi äro små humlor vi - bzz, bzz.
+Vi äro små humlor, som tar oss en geting.
+Vi äro små katter, som tar oss en jamare.
+Vi äro små fiskar, som tar oss en kallsup!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s25')">25. Nu tar vi halvan <span>▼</span></button>
+                        <div id="s25" class="song-lyrics">Nu tar vi halvan,
+den sitter som en smäck i valvan!
+Ingen tvekan, ingen skam,
+häll upp och svälj den fram!</div>
+                    </li>
+                    <li class="song-list-item">
+                        <button class="song-title-btn" onclick="toggleSong('s26')">26. Sista skålen <span>▼</span></button>
+                        <div id="s26" class="song-lyrics">När den sista skålen tömts ur vårat glas,
+så tackar vi för en hejdundrande kalas.
+Mamsellvägen tjugosex vi minns med glans,
+när vi svängde våra lurviga i en kräftdans!</div>
+                    </li>
+                </ul>`
+        };
+
+        function showSection(key, type) {
+            const resultBox = document.getElementById('result-box');
+            
+            if (currentActiveKey === key) {
+                resultBox.style.display = 'none';
+                currentActiveKey = null;
+                return;
+            }
+
+            resultBox.innerHTML = contentData[key];
+            currentActiveKey = key;
+            
+            if (type === 'song') {
+                resultBox.className = "content-box song-box-style";
+            } else {
+                resultBox.className = "content-box";
+            }
+
+            resultBox.style.display = 'block';
+            resultBox.style.animation = 'none';
+            resultBox.offsetHeight; 
+            resultBox.style.animation = null; 
+        }
+
+        function toggleSong(songId) {
+            const lyricsEl = document.getElementById(songId);
+            if (lyricsEl.style.display === "block") {
+                lyricsEl.style.display = "none";
+            } else {
+                lyricsEl.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
