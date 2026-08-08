@@ -12,94 +12,86 @@
             --map-color: #4285F4;
             --drive-color: #0F9D58;
             --song-color: #e91e63;
-            --quiz-color: #ff9800;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var--bg-color);
+            background-color: var(--bg-color);
             color: var(--text-color);
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             margin: 0;
-            box-sizing: border-box;
-        }
-
-        *, *:before, *:after {
-            box-sizing: inherit;
         }
 
         .container {
             max-width: 650px;
-            width: 100%;
-            margin: 10px auto;
+            margin: 0 auto;
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             border: 2px dashed var(--primary-color);
             position: relative;
         }
 
-        /* Fyrkantig och stor bild-knapp, nu centrerad/placerad säkert innanför */
+        /* Ännu större, fetare och mer synlig bild-knapp högst upp till vänster */
         .inside-drive-btn {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background-color: var(--drive-color);
             color: white;
-            width: 65px;
-            height: 65px;
+            width: 90px;
+            height: 90px;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: bold;
-            font-size: 0.75rem;
+            font-size: 0.95rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 2px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            gap: 4px;
+            box-shadow: 0 4px 12px rgba(15, 157, 88, 0.4);
             transition: background-color 0.2s, transform 0.2s;
             z-index: 10;
         }
 
         .inside-drive-btn span:first-child {
-            font-size: 1.4rem;
+            font-size: 2.2rem;
         }
 
         .inside-drive-btn:hover {
             background-color: #0b8043;
-            transform: translateY(-2px);
+            transform: scale(1.05);
         }
 
         h1 {
             color: var(--primary-color);
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-top: 15px;
             margin-bottom: 5px;
         }
 
         p.subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
             color: #555;
-            padding: 0 10px;
         }
 
         .button-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
-            gap: 10px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .nav-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 8px;
-            font-size: 0.95rem;
+            padding: 15px 10px;
+            font-size: 1rem;
             font-weight: bold;
             border-radius: 8px;
             cursor: pointer;
@@ -107,7 +99,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .nav-btn.song-btn {
@@ -118,7 +110,7 @@
         }
 
         .nav-btn span {
-            font-size: 1.6rem;
+            font-size: 2rem;
         }
 
         .nav-btn:hover {
@@ -130,20 +122,19 @@
             display: none;
             background-color: #ffebee;
             border-left: 5px solid var(--primary-color);
-            padding: 20px;
+            padding: 25px;
             border-radius: 4px;
             text-align: left;
-            font-size: 1rem;
+            font-size: 1.1rem;
             line-height: 1.6;
             animation: fadeIn 0.4s ease-in-out;
-            margin-bottom: 25px;
-            word-break: break-word;
+            margin-bottom: 10px;
         }
 
         .content-box.song-box-style {
             background-color: #fce4ec;
             border-left-color: var(--song-color);
-            max-height: 400px;
+            max-height: 450px;
             overflow-y: auto;
         }
 
@@ -169,7 +160,7 @@
             padding: 12px 15px;
             text-align: left;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--song-color);
             cursor: pointer;
             display: flex;
@@ -190,7 +181,7 @@
             white-space: pre-line;
             border-top: 1px solid #f8bbd0;
             color: #444;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .content-box ol {
@@ -206,14 +197,13 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 15px;
+            margin-top: 20px;
             background-color: var(--map-color);
             color: white;
-            padding: 10px 16px;
+            padding: 12px 20px;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
-            font-size: 0.95rem;
             transition: background-color 0.2s;
         }
 
@@ -221,93 +211,8 @@
             background-color: #3367D6;
         }
 
-        /* --- Sektioner --- */
-        .extra-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px dashed #ccc;
-            text-align: left;
-        }
-
-        .extra-section h2 {
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Quiz-formulär stil */
-        .quiz-card {
-            background: #fff8e1;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border: 1px solid #ffe0b2;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #444;
-            font-size: 0.95rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-
-        .quiz-question {
-            margin-bottom: 15px;
-            background: white;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .quiz-question p {
-            margin-top: 0;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-
-        .quiz-options label {
-            display: block;
-            font-weight: normal;
-            margin-bottom: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-
-        .submit-quiz-btn {
-            background-color: var(--quiz-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.2s;
-        }
-
-        .submit-quiz-btn:hover {
-            background-color: #f57c00;
-        }
-
         .moon-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 5px;
         }
 
@@ -316,24 +221,20 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Extra media query för riktigt små mobiler */
+        /* Mobilanpassning för knappen */
         @media (max-width: 480px) {
-            .container {
-                padding: 15px 10px;
-            }
             .inside-drive-btn {
-                width: 55px;
-                height: 55px;
+                width: 70px;
+                height: 70px;
                 top: 10px;
                 left: 10px;
-                font-size: 0.7rem;
+                font-size: 0.8rem;
             }
             .inside-drive-btn span:first-child {
-                font-size: 1.1rem;
+                font-size: 1.6rem;
             }
             h1 {
-                font-size: 1.6rem;
-                margin-top: 35px; /* Skapa plats för knappen */
+                margin-top: 25px;
             }
         }
     </style>
@@ -341,7 +242,7 @@
 <body>
 
     <div class="container">
-        <!-- Fyrkantig och stor bild-knapp högst upp till vänster -->
+        <!-- Stor, fyrkantig och tydlig bild-knapp högst upp till vänster -->
         <a href="https://drive.google.com/drive/folders/1zvHm_3LW7H_5Z6b2ynNLr_qV9DqYaHTU?usp=sharing" target="_blank" class="inside-drive-btn">
             <span>📸</span>
             <span>Bilder</span>
@@ -361,45 +262,6 @@
         </div>
 
         <div id="result-box" class="content-box"></div>
-
-        <!-- Tipspromenad / Hus-quiz -->
-        <div class="extra-section">
-            <h2 style="color: var(--quiz-color);">🧠 Hus-quiz & Tipspromenad</h2>
-            <p style="font-size: 1rem; color: #555;">Fyll i ert lagnamn och vilka som deltar, svara på frågorna och skicka in. Du får alla svar samlade direkt till dig!</p>
-            
-            <form action="https://formspree.io/f/xdennkvj" method="POST" class="quiz-card">
-                
-                <div class="form-group">
-                    <label for="team-name">Lagnamn:</label>
-                    <input type="text" id="team-name" name="Lagnamn" placeholder="T.ex. Lag Kräftpest" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="team-members">Vilka ingår i laget?:</label>
-                    <input type="text" id="team-members" name="Deltagare" placeholder="T.ex. Jesper, Kalle, Alexander..." required>
-                </div>
-
-                <div class="quiz-question">
-                    <p>Fråga 1: Hur många kvadratmeter smarta hem-kablar har grävts ner eller dolts sedan inflytten i juli?</p>
-                    <div class="quiz-options">
-                        <label><input type="radio" name="Fraga_1" value="X" required> X) 12 meter</label>
-                        <label><input type="radio" name="Fraga_1" value="1"> 1) Alldeles för många</label>
-                        <label><input type="radio" name="Fraga_1" value="2"> 2) Inga alls</label>
-                    </div>
-                </div>
-
-                <div class="quiz-question">
-                    <p>Fråga 2: Vilket fordon står i absolut flest diskussioner i garaget (förutom Passaten)?</p>
-                    <div class="quiz-options">
-                        <label><input type="radio" name="Fraga_2" value="X" required> X) En trimmad epa</label>
-                        <label><input type="radio" name="Fraga_2" value="1"> 1) DJI Mini 4K-drönaren</label>
-                        <label><input type="radio" name="Fraga_2" value="2"> 2) En gammal traktor</label>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-quiz-btn">Skicka in lagets svar! 🚀</button>
-            </form>
-        </div>
     </div>
 
     <script>
